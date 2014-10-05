@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 bluetatami. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class CashFlowView: NSView {
     let store: CFStore
@@ -75,8 +75,6 @@ class CashFlowView: NSView {
         }
         
         super.drawRect(dirtyRect)
-        NSColor.whiteColor().setFill()
-        NSRectFill(dirtyRect)
         
         let borderWidth:       CGFloat = 30
         
@@ -242,6 +240,39 @@ class CashFlowView: NSView {
     }
     
     required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        store = CFStore()
+        store.description
+        
+        var dateSeed = 0
+        func dateGenerator() -> NSDate {
+            let poop = dateSeed++ * 60 * 60 - (7 * 24 * 60 * 60)
+            let bla = NSDate().dateByAddingTimeInterval(NSTimeInterval(poop))
+            return bla
+        }
+        
+        let myFirstAccount = "myFirstAccount"
+        store.openAccount(myFirstAccount, initialBalance: 0, date: dateGenerator())
+        
+        store.earn(myFirstAccount, amount: 100, date: dateGenerator())
+        store.description
+        store.earn(myFirstAccount, amount: 200, date: dateGenerator())
+        store.description
+        store.earn(myFirstAccount, amount: 100, date: dateGenerator())
+        store.description
+        
+        
+        let mySecondAccount = "mySecondAccount"
+        store.openAccount(mySecondAccount, initialBalance: 0, date: dateGenerator())
+        
+        store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 100, date: dateGenerator())
+        
+        store.transfer(mySecondAccount, toAccount: myFirstAccount, amount: 50, date: dateGenerator())
+        
+        store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 200, date: dateGenerator())
+        
+        store.spend(mySecondAccount, amount: 100, date: dateGenerator())
+        
+        store.description
+        super.init(coder: coder)
     }
 }
