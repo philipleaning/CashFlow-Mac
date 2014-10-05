@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>36E29F16-1051-492C-ABD1-A5251077E066</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CashFlow</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>87BE7D597C7AF173D4E9F40E9421E543DD6B1C0C</key>
+		<string>https://github.com/philipleaning/CashFlow-Mac.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CashFlow/CashFlow.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>87BE7D597C7AF173D4E9F40E9421E543DD6B1C0C</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/philipleaning/CashFlow-Mac.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>87BE7D597C7AF173D4E9F40E9421E543DD6B1C0C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>87BE7D597C7AF173D4E9F40E9421E543DD6B1C0C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CashFlow-Mac</string>
+		</dict>
+	</array>
+</dict>
+</plist>
