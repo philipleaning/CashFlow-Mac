@@ -15,13 +15,14 @@ class CashFlowView: NSView {
     
     override func drawRect(dirtyRect: NSRect) {
         
+        
         func flowPath(#fromPoint: NSPoint, #toPoint: NSPoint, #width: CGFloat) -> NSBezierPath {
             if width == 0 {return NSBezierPath()}
             let fromOffsetPoint = NSPoint(x: fromPoint.x + width, y: fromPoint.y)
             let toOffsetPoint   = NSPoint(x: toPoint.x   + width, y: toPoint.y  )
             
             let transferHeight:         CGFloat = toPoint.y - fromPoint.y
-            let controlPointProportion: CGFloat = fromPoint.x < toPoint.x ? 0.7 : 0.3
+            let controlPointProportion: CGFloat = fromPoint.x < toPoint.x ? 0.5 : 0.5
             
             let controlpointheights: (a: CGFloat, b: CGFloat) = (transferHeight * controlPointProportion, transferHeight * (1-controlPointProportion))
             
@@ -78,11 +79,21 @@ class CashFlowView: NSView {
         
         let borderWidth:       CGFloat = 30
         
-        let accountTrackWidth: CGFloat = dirtyRect.width / CGFloat(store.accountNames.count + 1)
+        let accountTrackWidth: CGFloat = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
         
         let eventHeight: CGFloat = 100
         
-        let visibleEvents = store.events[0..<min(9, store.events.count)]
+        let visibleEvents = store.events
+        
+        
+        // Draw account rects
+        NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
+        NSRectFill(NSRect(x: 0.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000))
+        NSRectFill(NSRect(x: dirtyRect.width - accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000))
+        for accountIndex in 0..<store.accountNames.count {
+            NSRectFill(NSRect(x: CGFloat(accountIndex) * (accountTrackWidth + 30.0) + 30.0 + accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth, height: 1000))
+        }
+        
         
         // Find what the largest number is and determine number of units per pixel
         var maximumBalance = 1
@@ -93,9 +104,17 @@ class CashFlowView: NSView {
                 }
             }
         }
+        println(store.description)
         let pixelsPerUnit: CGFloat = accountTrackWidth / CGFloat(maximumBalance)
         
         NSColor.grayColor().setStroke()
+        
+        func xOfAccount(accountName: NSString) -> CGFloat?{
+            if let index = firstIndexOf(store.accountNames, accountName) {
+                return CGFloat(index) * (borderWidth + accountTrackWidth) + accountTrackWidth/2.0 + 30.0
+            }
+            return nil
+        }
         
         for (eventIndex, event) in enumerate(visibleEvents) {
             NSColor.blueColor().setFill()
@@ -108,8 +127,7 @@ class CashFlowView: NSView {
                 // Draw rectangles for resulting states
                 for (accountName, amount) in event.resultState {
                     if (accountName != account) {
-                        if let accountIndex = firstIndexOf(store.accountNames, accountName) {
-                            let x: CGFloat      = accountTrackWidth/2.0 + CGFloat(accountIndex)*(borderWidth + accountTrackWidth)
+                        if let x = xOfAccount(accountName) {
                             let width:  CGFloat = CGFloat(amount) * pixelsPerUnit
                             let balanceRect = NSRect(x: x, y: y, width: width, height: eventHeight)
                             NSRectFill(balanceRect)
@@ -121,8 +139,7 @@ class CashFlowView: NSView {
                 // Draw rectangles for resulting states
                 for (accountName, amount) in event.resultState {
                     if (accountName != fromAccount && accountName != toAccount) {
-                        if let accountIndex = firstIndexOf(store.accountNames, accountName) {
-                            let x: CGFloat      = accountTrackWidth/2.0 + CGFloat(accountIndex)*(borderWidth + accountTrackWidth)
+                        if let x = xOfAccount(accountName) {
                             let width:  CGFloat = CGFloat(amount) * pixelsPerUnit
                             let balanceRect = NSRect(x: x, y: y, width: width, height: eventHeight)
                             NSRectFill(balanceRect)
@@ -131,20 +148,16 @@ class CashFlowView: NSView {
                 }
                 
                 if eventIndex > 0 {
-                    if let fromAccountIndex = firstIndexOf(store.accountNames, fromAccount) {
-                        if let toAccountIndex = firstIndexOf(store.accountNames, toAccount) {
+                    if let fromX = xOfAccount(fromAccount) {
+                        if let toX = xOfAccount(toAccount) {
                             let fromCarryOverWidth   = CGFloat(event.resultState[fromAccount]!) * pixelsPerUnit
                             let transferWidth: CGFloat = CGFloat(amount) * pixelsPerUnit
                             let toCarryOverWidth     = CGFloat(visibleEvents[eventIndex - 1].resultState[toAccount]!) * pixelsPerUnit
                             
-                            
-                            let fromX: CGFloat      = accountTrackWidth/2.0 + CGFloat(fromAccountIndex) * (borderWidth + accountTrackWidth)
-                            let toX:   CGFloat      = accountTrackWidth/2.0 + CGFloat(toAccountIndex)   * (borderWidth + accountTrackWidth)
-                            
-                            let (fromCarryOverXTop, fromTransferX, toCarryOverXTop) = fromAccountIndex < toAccountIndex ?
+                            let (fromCarryOverXTop, fromTransferX, toCarryOverXTop) = fromX < toX ?
                                 (fromX, fromX + fromCarryOverWidth, toX) : (fromX + transferWidth, fromX, toX)
                             
-                            let (fromCarryOverXBottom, toTransferX, toCarryOverXBottom) = fromAccountIndex < toAccountIndex ?
+                            let (fromCarryOverXBottom, toTransferX, toCarryOverXBottom) = fromX < toX ?
                                 (fromX, toX, toX + transferWidth) : (fromX, toX + toCarryOverWidth, toX)
                             
                             let fromCarryOverPath = flowPath(fromPoint: NSPoint(x: fromCarryOverXTop, y: y),
@@ -170,8 +183,7 @@ class CashFlowView: NSView {
                 // Draw rectangles for resulting states
                 for (accountName, amount) in event.resultState {
                     if (accountName != account) {
-                        if let accountIndex = firstIndexOf(store.accountNames, accountName) {
-                            let x: CGFloat      = accountTrackWidth/2.0 + CGFloat(accountIndex)*(borderWidth + accountTrackWidth)
+                        if let x = xOfAccount(accountName) {
                             let width:  CGFloat = CGFloat(amount) * pixelsPerUnit
                             let balanceRect = NSRect(x: x, y: y, width: width, height: eventHeight)
                             NSRectFill(balanceRect)
@@ -179,11 +191,9 @@ class CashFlowView: NSView {
                     }
                 }
                 
-                if let accountIndex = firstIndexOf(store.accountNames, account) {
+                if let x = xOfAccount(account) {
                     let amountWidth = CGFloat(amount) * pixelsPerUnit
                     let carryOverWidth = CGFloat(event.resultState[account]!) * pixelsPerUnit - amountWidth
-                    
-                    let x: CGFloat      = accountTrackWidth/2.0 + CGFloat(accountIndex) * (borderWidth + accountTrackWidth)
                     
                     let carryOverPath = flowPath(fromPoint: NSPoint(x: x, y: y),
                         toPoint: NSPoint(x: x + amountWidth, y: y + eventHeight),
@@ -199,8 +209,7 @@ class CashFlowView: NSView {
                 // Draw rectangles for resulting states
                 for (accountName, amount) in event.resultState {
                     if (accountName != account) {
-                        if let accountIndex = firstIndexOf(store.accountNames, accountName) {
-                            let x: CGFloat      = accountTrackWidth/2.0 + CGFloat(accountIndex)*(borderWidth + accountTrackWidth)
+                        if let x = xOfAccount(accountName) {
                             let width:  CGFloat = CGFloat(amount) * pixelsPerUnit
                             let balanceRect = NSRect(x: x, y: y, width: width, height: eventHeight)
                             NSRectFill(balanceRect)
@@ -209,11 +218,9 @@ class CashFlowView: NSView {
                 }
                 
                 
-                if let accountIndex = firstIndexOf(store.accountNames, account) {
+                if let x = xOfAccount(account) {
                     let amountWidth = CGFloat(amount) * pixelsPerUnit
                     let carryOverWidth = CGFloat(event.resultState[account]!) * pixelsPerUnit
-                    
-                    let x: CGFloat      = accountTrackWidth/2.0 + CGFloat(accountIndex) * (borderWidth + accountTrackWidth)
                     
                     let carryOverPath = flowPath(fromPoint: NSPoint(x: x, y: y),
                         toPoint: NSPoint(x: x, y: y + eventHeight),
@@ -272,7 +279,9 @@ class CashFlowView: NSView {
         
         store.spend(mySecondAccount, amount: 100, date: dateGenerator())
         
-        store.description
+        store.earn(mySecondAccount, amount: 1000, date: dateGenerator())
+        
         super.init(coder: coder)
+        println(store.description)
     }
 }
