@@ -194,14 +194,12 @@ class CashFlowView: NSView {
                 if let x = xOfAccount(account) {
                     let amountWidth = CGFloat(amount) * pixelsPerUnit
                     let carryOverWidth = CGFloat(event.resultState[account]!) * pixelsPerUnit - amountWidth
-                    
-                    let carryOverPath = flowPath(fromPoint: NSPoint(x: x, y: y),
-                        toPoint: NSPoint(x: x + amountWidth, y: y + eventHeight),
-                        width: carryOverWidth)
-                    carryOverPath.fill()
+
+                    // Carry over rect
+                    NSRectFill(NSRect(x: x, y: y, width: carryOverWidth, height: eventHeight))
                     
                     NSColor.greenColor().setFill()
-                    let incomePath = incomePath(toPoint: NSPoint(x: x + amountWidth, y: y + eventHeight), width: amountWidth)
+                    let incomePath = incomePath(toPoint: NSPoint(x: x + CGFloat(event.resultState[account]!) * pixelsPerUnit, y: y + eventHeight), width: amountWidth)
                     
                     incomePath.fill()
                 }
