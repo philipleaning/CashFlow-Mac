@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51125F0319E849D700307004 /* CashFlowTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51125F0219E849D700307004 /* CashFlowTopView.swift */; };
+		51125F0519E849E900307004 /* CashFlowBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51125F0419E849E900307004 /* CashFlowBottomView.swift */; };
 		A6E05D5919E1D83800AAF4B2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E05D5819E1D83800AAF4B2 /* main.swift */; };
 		A6E05D5B19E1D83800AAF4B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E05D5A19E1D83800AAF4B2 /* AppDelegate.swift */; };
 		A6E05D5D19E1D83800AAF4B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6E05D5C19E1D83800AAF4B2 /* Images.xcassets */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		51125F0219E849D700307004 /* CashFlowTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashFlowTopView.swift; sourceTree = "<group>"; };
+		51125F0419E849E900307004 /* CashFlowBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashFlowBottomView.swift; sourceTree = "<group>"; };
 		A6E05D5319E1D83800AAF4B2 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6E05D5719E1D83800AAF4B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6E05D5819E1D83800AAF4B2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 			children = (
 				A6E05D5A19E1D83800AAF4B2 /* AppDelegate.swift */,
 				A6E05D7519E1D87B00AAF4B2 /* CashFlowView.swift */,
+				51125F0219E849D700307004 /* CashFlowTopView.swift */,
+				51125F0419E849E900307004 /* CashFlowBottomView.swift */,
 				A6E05D7719E1D89300AAF4B2 /* CashFlowStore.swift */,
 				A6E05D5C19E1D83800AAF4B2 /* Images.xcassets */,
 				A6E05D5E19E1D83800AAF4B2 /* MainMenu.xib */,
@@ -214,10 +220,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51125F0519E849E900307004 /* CashFlowBottomView.swift in Sources */,
 				A6E05D5B19E1D83800AAF4B2 /* AppDelegate.swift in Sources */,
 				A6E05D7619E1D87B00AAF4B2 /* CashFlowView.swift in Sources */,
 				A6E05D7819E1D89300AAF4B2 /* CashFlowStore.swift in Sources */,
 				A6E05D5919E1D83800AAF4B2 /* main.swift in Sources */,
+				51125F0319E849D700307004 /* CashFlowTopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +413,7 @@
 				A6E05D7119E1D83900AAF4B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A6E05D7219E1D83900AAF4B2 /* Build configuration list for PBXNativeTarget "CashFlowTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +422,7 @@
 				A6E05D7419E1D83900AAF4B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
