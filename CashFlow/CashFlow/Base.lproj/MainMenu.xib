@@ -14,6 +14,8 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CashFlow" customModuleProvider="target">
             <connections>
+                <outlet property="bottomViewHeightConstraint" destination="FzK-yz-6tk" id="FIJ-xL-pVZ"/>
+                <outlet property="topViewHeightConstraint" destination="Y8m-0z-X8O" id="B4m-hP-leG"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>

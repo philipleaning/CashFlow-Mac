@@ -12,9 +12,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
+    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     func applicationDidFinishLaunching(aNotification: NSNotification?) {
         // Insert code here to initialize your application
+        
+        topViewHeightConstraint.constant = 30
+        bottomViewHeightConstraint.constant = 30
     }
 
     func applicationWillTerminate(aNotification: NSNotification?) {
