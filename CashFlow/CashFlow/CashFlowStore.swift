@@ -13,6 +13,20 @@ class CFStore {
     
     var events: [CFEvent] = []
     
+    //Singleton class stuff - its a database... This shouldn't hurt
+    class var sharedInstance: CFStore {
+        struct Static {
+            static var instance: CFStore?
+            static var token: dispatch_once_t = 0
+        }
+        
+        dispatch_once(&Static.token) {
+            Static.instance = CFStore()
+        }
+        
+        return Static.instance!
+    }
+    
     func performAction(eventType: CFEventType, atDate date: NSDate) {
         // Find index to insert event at
         var insertionIndex: Int?

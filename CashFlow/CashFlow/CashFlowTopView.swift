@@ -10,6 +10,12 @@ import Foundation
 import Cocoa
 
 class CFTopView: NSView {
+   // let store: CFStore
+
+    let borderWidth:       CGFloat = 30
+    
+   // let accountTrackWidth: CGFloat = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
+
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
