@@ -10,18 +10,31 @@ import Foundation
 import Cocoa
 
 class CFTopView: NSView {
-   // let store: CFStore
+    let store = CFStore.sharedInstance
 
     let borderWidth:       CGFloat = 30
     
-   // let accountTrackWidth: CGFloat = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
-
+    var accountTrackWidth: CGFloat = 0
+    
+    
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
     
     override func drawRect(dirtyRect: NSRect) {
-        drawRectAt(CGPoint(x: 10, y: -30), Height: 40, Width: 40, withString: "Hi")
+        accountTrackWidth = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
+        drawRectAt(CGPoint(x: 0, y: 0), Height: self.frame.height, Width: accountTrackWidth/2.0, withString: "In")
+        drawRectAt(CGPoint(x: dirtyRect.width - (accountTrackWidth/2.0), y: 0), Height: self.frame.height, Width: accountTrackWidth/2.0, withString: "Out")
+        
+        let accountNames = store.accountNames
+        
+        for (index, anAccount) in enumerate(accountNames) {
+            let name = anAccount as NSString
+            let origin = CGPoint(x:accountTrackWidth/2.0 + (borderWidth*CGFloat(index+1)) + CGFloat(index)*accountTrackWidth, y: 0)
+            drawRectAt(origin, Height: self.frame.height, Width: accountTrackWidth, withString: name)
+        }
+
+
         
     }
     
@@ -29,11 +42,14 @@ class CFTopView: NSView {
         let containingRect = CGRectMake(Point.x, Point.y, Width, Height)
         let drawnString: NSString = withString
         
-        
+        NSColor.redColor().setFill()
+        NSRectFill(containingRect)
+
         var attributeArray: [String: NSObject] = [:]
-        attributeArray[NSForegroundColorAttributeName] = NSColor.redColor()
+        attributeArray[NSForegroundColorAttributeName] = NSColor.blackColor()
         
         drawnString.drawInRect(containingRect, withAttributes: attributeArray)
+        
 
     }
 }

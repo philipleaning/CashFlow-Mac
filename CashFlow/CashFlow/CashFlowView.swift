@@ -9,7 +9,7 @@
 import Cocoa
 
 class CashFlowView: NSView {
-    let store: CFStore
+    let store = CFStore.sharedInstance
     var isFlipped = true
     
     
@@ -245,7 +245,6 @@ class CashFlowView: NSView {
     }
     
     required init(coder: NSCoder) {
-        store = CFStore()
         store.description
         
         var dateSeed = 0
@@ -255,7 +254,7 @@ class CashFlowView: NSView {
             return bla
         }
         
-        let myFirstAccount = "myFirstAccount"
+        let myFirstAccount = "My First Account"
         store.openAccount(myFirstAccount, initialBalance: 0, date: dateGenerator())
         
         store.earn(myFirstAccount, amount: 100, date: dateGenerator())
@@ -266,7 +265,7 @@ class CashFlowView: NSView {
         store.description
         
         
-        let mySecondAccount = "mySecondAccount"
+        let mySecondAccount = "My Second Account"
         store.openAccount(mySecondAccount, initialBalance: 0, date: dateGenerator())
         
         store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 100, date: dateGenerator())
