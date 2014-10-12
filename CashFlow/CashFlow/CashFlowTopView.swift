@@ -48,7 +48,15 @@ class CFTopView: NSView {
         var attributeArray: [String: NSObject] = [:]
         attributeArray[NSForegroundColorAttributeName] = NSColor.blackColor()
         
-        drawnString.drawInRect(containingRect, withAttributes: attributeArray)
+        let nameFont = NSFont.systemFontOfSize(17)
+        var nameParagraphStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
+        nameParagraphStyle.alignment = NSTextAlignment.CenterTextAlignment
+
+        var  attributeDictionary: [String: NSObject] =
+            [NSFontAttributeName:           nameFont,
+                NSParagraphStyleAttributeName: nameParagraphStyle]
+        
+        drawnString.drawInRect(containingRect, withAttributes: attributeDictionary)
         
 
     }
