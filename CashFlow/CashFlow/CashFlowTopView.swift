@@ -45,9 +45,6 @@ class CFTopView: NSView {
         NSColor.redColor().setFill()
         NSRectFill(containingRect)
 
-        var attributeArray: [String: NSObject] = [:]
-        attributeArray[NSForegroundColorAttributeName] = NSColor.blackColor()
-        
         let nameFont = NSFont.systemFontOfSize(17)
         var nameParagraphStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
         nameParagraphStyle.alignment = NSTextAlignment.CenterTextAlignment
