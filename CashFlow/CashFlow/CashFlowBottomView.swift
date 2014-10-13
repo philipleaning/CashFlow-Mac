@@ -39,8 +39,8 @@ class CFBottomView: NSView {
         let containingRect = CGRectMake(Point.x, Point.y, Width, Height)
         let drawnString: NSString = withString
         
-        NSColor.redColor().setFill()
-        NSRectFill(containingRect)
+       // NSColor.redColor().setFill()
+        //NSRectFill(containingRect)
         
         let nameFont = NSFont.systemFontOfSize(17)
         var nameParagraphStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
