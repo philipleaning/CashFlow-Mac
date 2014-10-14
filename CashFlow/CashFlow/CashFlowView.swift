@@ -12,6 +12,16 @@ class CashFlowView: NSView {
     let store = CFStore.sharedInstance
     var isFlipped = true
     
+    //Variables for graphical transfers
+    var originAccount: String?
+    var startPoint: CGPoint?
+    var endPoint: CGPoint?
+    var accountRects: [(accountName: String, accountRect: NSRect)] = []
+    
+    //Set ready to accept mouse down events
+    override func acceptsFirstMouse(theEvent: NSEvent) -> Bool {
+        return true
+    }
     
     override func drawRect(dirtyRect: NSRect) {
         
@@ -90,8 +100,13 @@ class CashFlowView: NSView {
         NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
         NSRectFill(NSRect(x: 0.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000))
         NSRectFill(NSRect(x: dirtyRect.width - accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000))
+        //Clear the array of account rects
+        accountRects = []
         for accountIndex in 0..<store.accountNames.count {
-            NSRectFill(NSRect(x: CGFloat(accountIndex) * (accountTrackWidth + 30.0) + 30.0 + accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth, height: 1000))
+            let newRect = NSRect(x: CGFloat(accountIndex) * (accountTrackWidth + 30.0) + 30.0 + accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth, height: 1000)
+            NSRectFill(newRect)
+            //Add this rect to the array of Account Names/Account Rects for click locating
+            accountRects.append(accountName: String(store.accountNames[accountIndex]), accountRect: newRect)
         }
         
         
@@ -244,7 +259,7 @@ class CashFlowView: NSView {
         super.init(frame: frameRect)
     }
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         store.description
         
         var dateSeed = 0
@@ -280,5 +295,17 @@ class CashFlowView: NSView {
         
         super.init(coder: coder)
         println(store.description)
+    }
+    
+    override func mouseDown(theEvent: NSEvent) {
+        //Get click location in global coords
+        let globalCoordinatesPoint = theEvent.locationInWindow
+        //Convert to view coords and set appropraite variable
+        startPoint = self.convertPoint(globalCoordinatesPoint, fromView: nil)
+        for (accountName, accountRect) in accountRects {
+            if accountRect.contains(startPoint!) {
+                originAccount = accountName
+            }
+        }
     }
 }

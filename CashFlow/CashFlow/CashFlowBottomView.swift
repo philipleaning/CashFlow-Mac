@@ -17,7 +17,7 @@ class CFBottomView: NSView {
     var accountTrackWidth: CGFloat = 0
     
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
@@ -25,6 +25,8 @@ class CFBottomView: NSView {
         
         NSColor(calibratedWhite: 0.29, alpha: 1.0).setFill()
         NSRectFill(dirtyRect)
+        
+        drawDividingLineAtTop()
 
         accountTrackWidth = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
         let accountNames = store.accountNames
@@ -52,5 +54,14 @@ class CFBottomView: NSView {
             NSForegroundColorAttributeName: fontColor]
         
         drawnString.drawInRect(containingRect, withAttributes: attributeDictionary)
+    }
+    
+    func drawDividingLineAtTop() {
+        var linePath = NSBezierPath()
+        let height = self.frame.height
+        linePath.moveToPoint(CGPoint(x: 0, y: height))
+        linePath.lineToPoint(CGPoint(x: self.frame.width, y: height))
+        NSColor(calibratedWhite: 0.9, alpha: 1.0).setStroke()
+        linePath.stroke()
     }
 }

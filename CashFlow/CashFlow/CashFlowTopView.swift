@@ -17,13 +17,15 @@ class CFTopView: NSView {
     var accountTrackWidth: CGFloat = 0
     
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
     override func drawRect(dirtyRect: NSRect) {
         NSColor(calibratedWhite: 0.29, alpha: 1.0).setFill()
         NSRectFill(dirtyRect)
+        
+        drawDividingLineAtBottom()
 
         accountTrackWidth = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
         drawRectAt(CGPoint(x: 0, y: 0), Height: self.frame.height, Width: accountTrackWidth/2.0, withString: "In")
@@ -55,5 +57,13 @@ class CFTopView: NSView {
                 NSForegroundColorAttributeName: fontColor]
         
         drawnString.drawInRect(containingRect, withAttributes: attributeDictionary)
+    }
+    
+    func drawDividingLineAtBottom() {
+        var linePath = NSBezierPath()
+        linePath.moveToPoint(CGPoint(x: 0, y: 0))
+        linePath.lineToPoint(CGPoint(x: self.frame.width, y: 0))
+        NSColor(calibratedWhite: 0.9, alpha: 1.0).setStroke()
+        linePath.stroke()
     }
 }
