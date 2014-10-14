@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		51125F0319E849D700307004 /* CashFlowTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51125F0219E849D700307004 /* CashFlowTopView.swift */; };
 		51125F0519E849E900307004 /* CashFlowBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51125F0419E849E900307004 /* CashFlowBottomView.swift */; };
+		51C6129D19EDCECB00EEA40B /* PopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C6129C19EDCECB00EEA40B /* PopoverView.xib */; };
+		51C6129F19EDCF8100EEA40B /* CFPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6129E19EDCF8100EEA40B /* CFPopoverViewController.swift */; };
 		A6E05D5919E1D83800AAF4B2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E05D5819E1D83800AAF4B2 /* main.swift */; };
 		A6E05D5B19E1D83800AAF4B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E05D5A19E1D83800AAF4B2 /* AppDelegate.swift */; };
 		A6E05D5D19E1D83800AAF4B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6E05D5C19E1D83800AAF4B2 /* Images.xcassets */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		51125F0219E849D700307004 /* CashFlowTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashFlowTopView.swift; sourceTree = "<group>"; };
 		51125F0419E849E900307004 /* CashFlowBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashFlowBottomView.swift; sourceTree = "<group>"; };
+		51C6129C19EDCECB00EEA40B /* PopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverView.xib; sourceTree = "<group>"; };
+		51C6129E19EDCF8100EEA40B /* CFPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFPopoverViewController.swift; sourceTree = "<group>"; };
 		A6E05D5319E1D83800AAF4B2 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6E05D5719E1D83800AAF4B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6E05D5819E1D83800AAF4B2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 				A6E05D5C19E1D83800AAF4B2 /* Images.xcassets */,
 				A6E05D5E19E1D83800AAF4B2 /* MainMenu.xib */,
 				A6E05D5619E1D83800AAF4B2 /* Supporting Files */,
+				51C6129C19EDCECB00EEA40B /* PopoverView.xib */,
+				51C6129E19EDCF8100EEA40B /* CFPopoverViewController.swift */,
 			);
 			path = CashFlow;
 			sourceTree = "<group>";
@@ -203,6 +209,7 @@
 			files = (
 				A6E05D5D19E1D83800AAF4B2 /* Images.xcassets in Resources */,
 				A6E05D6019E1D83800AAF4B2 /* MainMenu.xib in Resources */,
+				51C6129D19EDCECB00EEA40B /* PopoverView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +231,7 @@
 				A6E05D5B19E1D83800AAF4B2 /* AppDelegate.swift in Sources */,
 				A6E05D7619E1D87B00AAF4B2 /* CashFlowView.swift in Sources */,
 				A6E05D7819E1D89300AAF4B2 /* CashFlowStore.swift in Sources */,
+				51C6129F19EDCF8100EEA40B /* CFPopoverViewController.swift in Sources */,
 				A6E05D5919E1D83800AAF4B2 /* main.swift in Sources */,
 				51125F0319E849D700307004 /* CashFlowTopView.swift in Sources */,
 			);

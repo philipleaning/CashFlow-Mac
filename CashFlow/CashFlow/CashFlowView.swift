@@ -365,4 +365,12 @@ class CashFlowView: NSView {
         transferLine.stroke()
         }
     }
+    
+    func openPopoverAt(Point: CGPoint) {
+        let popover = NSPopover()
+        popover.contentViewController = CFPopoverViewController(nibName: "PopoverView", bundle: nil)
+        let placementRect = NSRect(x:Point.x-1,y:Point.y-1,width:2,height:2)
+        popover.behavior = .Transient
+        popover.showRelativeToRect(placementRect, ofView:self, preferredEdge: NSMinYEdge)
+    }
 }
