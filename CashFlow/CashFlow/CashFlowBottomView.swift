@@ -22,6 +22,10 @@ class CFBottomView: NSView {
     }
     
     override func drawRect(dirtyRect: NSRect) {
+        
+        NSColor(calibratedWhite: 0.29, alpha: 1.0).setFill()
+        NSRectFill(dirtyRect)
+
         accountTrackWidth = dirtyRect.width / CGFloat(store.accountNames.count + 1) - 30.0
         let accountNames = store.accountNames
         
@@ -31,16 +35,14 @@ class CFBottomView: NSView {
             drawRectAt(origin, Height: self.frame.height, Width: accountTrackWidth, withString: "\(balance)")
         }
         
-        
-        
     }
     
     func drawRectAt(Point: CGPoint, Height: CGFloat, Width: CGFloat, withString: String) {
         let containingRect = CGRectMake(Point.x, Point.y, Width, Height)
         let drawnString: NSString = withString
         
-       // NSColor.redColor().setFill()
-        //NSRectFill(containingRect)
+        NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
+        NSRectFill(containingRect)
         
         let nameFont = NSFont.systemFontOfSize(17)
         var nameParagraphStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
@@ -51,7 +53,5 @@ class CFBottomView: NSView {
             NSParagraphStyleAttributeName: nameParagraphStyle]
         
         drawnString.drawInRect(containingRect, withAttributes: attributeDictionary)
-        
-        
     }
 }
