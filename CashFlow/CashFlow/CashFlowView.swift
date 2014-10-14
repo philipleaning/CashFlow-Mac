@@ -272,43 +272,24 @@ class CashFlowView: NSView {
         self.store = store
         super.init(frame: frameRect)
     }
+    
     var dateSeed = 0
     func dateGenerator() -> NSDate {
         let poop = dateSeed++ * 60 * 60 - (7 * 24 * 60 * 60)
         let bla = NSDate().dateByAddingTimeInterval(NSTimeInterval(poop))
         return bla
     }
+    
     required init?(coder: NSCoder) {
-        store.description
         super.init(coder: coder)
-
-   
         
         let myFirstAccount = "My First Account"
         store.openAccount(myFirstAccount, initialBalance: 0, date: dateGenerator())
-        
         store.earn(myFirstAccount, amount: 1000, date: dateGenerator())
-        store.description
-        //store.earn(myFirstAccount, amount: 200, date: dateGenerator())
-        store.description
-        //store.earn(myFirstAccount, amount: 100, date: dateGenerator())
-        store.description
-        
         
         let mySecondAccount = "My Second Account"
         store.openAccount(mySecondAccount, initialBalance: 0, date: dateGenerator())
         store.earn(mySecondAccount, amount: 1000, date: dateGenerator())
-        //store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 100, date: dateGenerator())
-        
-        //store.transfer(mySecondAccount, toAccount: myFirstAccount, amount: 50, date: dateGenerator())
-        
-        //store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 200, date: dateGenerator())
-        
-       // store.spend(mySecondAccount, amount: 100, date: dateGenerator())
-        
-        //store.earn(mySecondAccount, amount: 1000, date: dateGenerator())
-        
-        println(store.description)
     }
     
     override func mouseDown(theEvent: NSEvent) {
