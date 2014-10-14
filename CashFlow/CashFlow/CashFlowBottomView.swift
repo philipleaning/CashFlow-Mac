@@ -41,16 +41,18 @@ class CFBottomView: NSView {
         let containingRect = CGRectMake(Point.x, Point.y, Width, Height)
         let drawnString: NSString = withString
         
-        NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
-        NSRectFill(containingRect)
+      //  NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
+       // NSRectFill(containingRect)
         
         let nameFont = NSFont.systemFontOfSize(17)
         var nameParagraphStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
         nameParagraphStyle.alignment = NSTextAlignment.CenterTextAlignment
+        let fontColor = NSColor(calibratedWhite: 0.9, alpha: 1.0)
         
         var  attributeDictionary: [String: NSObject] =
         [NSFontAttributeName:           nameFont,
-            NSParagraphStyleAttributeName: nameParagraphStyle]
+            NSParagraphStyleAttributeName: nameParagraphStyle,
+            NSForegroundColorAttributeName: fontColor]
         
         drawnString.drawInRect(containingRect, withAttributes: attributeDictionary)
     }
