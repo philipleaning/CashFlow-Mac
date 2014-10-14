@@ -94,7 +94,12 @@ class CashFlowView: NSView {
         
         let eventHeight: CGFloat = 100
         
-        let visibleEvents = store.events
+        var visibleEvents = store.events
+        
+        //Trim visible events to the last 10 events
+        while visibleEvents.count > 5 {
+            visibleEvents.removeAtIndex(0)
+        }
         
         
         // Draw account rects
