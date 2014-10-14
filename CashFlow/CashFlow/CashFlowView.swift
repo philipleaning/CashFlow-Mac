@@ -14,6 +14,7 @@ class CashFlowView: NSView {
     
     //Variables for graphical transfers
     var originAccount: String?
+    var destinationAccount: String?
     var startPoint: CGPoint?
     var endPoint: CGPoint?
     var accountRects: [(accountName: String, accountRect: NSRect)] = []
@@ -97,11 +98,17 @@ class CashFlowView: NSView {
         
         
         // Draw account rects
-        NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
-        NSRectFill(NSRect(x: 0.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000))
-        NSRectFill(NSRect(x: dirtyRect.width - accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000))
-        //Clear the array of account rects
+        //Clear store of account names/ account rects
         accountRects = []
+        NSColor(calibratedWhite: 0.4, alpha: 1.0).setFill()
+        let inRect = NSRect(x: 0.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000)
+        let outRect = NSRect(x: dirtyRect.width - accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth/2.0, height: 1000)
+        NSRectFill(inRect)
+        NSRectFill(outRect)
+        //Add these rects to the store of rects thing...
+        accountRects.append(accountName: "In", accountRect: inRect)
+        accountRects.append(accountName: "Out", accountRect: outRect)
+        //Clear the array of account rects
         for accountIndex in 0..<store.accountNames.count {
             let newRect = NSRect(x: CGFloat(accountIndex) * (accountTrackWidth + 30.0) + 30.0 + accountTrackWidth/2.0, y: 0.0, width: accountTrackWidth, height: 1000)
             NSRectFill(newRect)
@@ -250,6 +257,8 @@ class CashFlowView: NSView {
                 let bla = 4
             }
         }
+        
+        drawTransferLine()
     }
     
     
@@ -300,12 +309,53 @@ class CashFlowView: NSView {
     override func mouseDown(theEvent: NSEvent) {
         //Get click location in global coords
         let globalCoordinatesPoint = theEvent.locationInWindow
-        //Convert to view coords and set appropraite variable
-        startPoint = self.convertPoint(globalCoordinatesPoint, fromView: nil)
+        //Convert to view coords
+        let localViewClickLocation = self.convertPoint(globalCoordinatesPoint, fromView: nil)
+        //Check if click is on an account rect
         for (accountName, accountRect) in accountRects {
-            if accountRect.contains(startPoint!) {
+            if accountRect.contains(localViewClickLocation) {
                 originAccount = accountName
+                startPoint = localViewClickLocation
             }
+        }
+    }
+    
+    override func mouseDragged(theEvent: NSEvent) {
+        //Get click location in global coords
+        let globalCoordinatesPoint = theEvent.locationInWindow
+        //Convert to view coords and set appropraite variable
+        endPoint = self.convertPoint(globalCoordinatesPoint, fromView: nil)
+        self.setNeedsDisplayInRect(self.frame)
+    }
+    
+    override func mouseUp(theEvent: NSEvent) {
+        //Check if click is on an account rect and say which one
+        //Get click location in global coords
+        let globalCoordinatesPoint = theEvent.locationInWindow
+        //Convert to view coords
+        let localViewClickLocation = self.convertPoint(globalCoordinatesPoint, fromView: nil)
+        
+        for (accountName, accountRect) in accountRects {
+            if accountRect.contains(localViewClickLocation) {
+                if accountName != originAccount {
+                    destinationAccount = accountName
+                }
+            }
+        }
+        //Set startPoint, endPoint, and originAccount to nil as no longer valid
+        startPoint = nil
+        endPoint = nil
+        originAccount = nil
+        self.setNeedsDisplayInRect(self.frame)
+    }
+    
+    func drawTransferLine() {
+        if startPoint != nil && endPoint != nil {
+        var transferLine = NSBezierPath()
+        transferLine.moveToPoint(startPoint!)
+        transferLine.lineToPoint(endPoint!)
+        NSColor.blueColor().setStroke()
+        transferLine.stroke()
         }
     }
 }
