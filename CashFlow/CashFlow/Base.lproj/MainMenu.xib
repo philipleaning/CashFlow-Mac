@@ -690,7 +690,7 @@
                             <constraint firstAttribute="height" constant="37" id="FzK-yz-6tk"/>
                         </constraints>
                     </customView>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atr-24-alC" customClass="cashFlowScrollView" customModule="CashFlow" customModuleProvider="target">
+                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atr-24-alC" customClass="cashFlowScrollView" customModule="CashFlow" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="37" width="480" height="279"/>
                         <clipView key="contentView" id="BsY-Kt-B4E">
                             <rect key="frame" x="1" y="1" width="166" height="79"/>
@@ -714,7 +714,7 @@
                             <rect key="frame" x="1" y="80" width="166" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.97590361445783136" horizontal="NO" id="q2M-jc-Ozo">
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="q2M-jc-Ozo">
                             <rect key="frame" x="167" y="1" width="15" height="79"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
