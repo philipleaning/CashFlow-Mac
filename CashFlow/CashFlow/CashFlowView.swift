@@ -294,9 +294,9 @@ class CashFlowView: NSView {
         
         store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 100, date: dateGenerator())
         
-        store.transfer(mySecondAccount, toAccount: myFirstAccount, amount: 50, date: dateGenerator())
+        //store.transfer(mySecondAccount, toAccount: myFirstAccount, amount: 50, date: dateGenerator())
         
-        store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 200, date: dateGenerator())
+        //store.transfer(myFirstAccount, toAccount: mySecondAccount, amount: 200, date: dateGenerator())
         
         store.spend(mySecondAccount, amount: 100, date: dateGenerator())
         
@@ -339,6 +339,8 @@ class CashFlowView: NSView {
             if accountRect.contains(localViewClickLocation) {
                 if accountName != originAccount {
                     destinationAccount = accountName
+                    store.transfer(originAccount!, toAccount: destinationAccount!, amount: 200, date: NSDate())
+
                 }
             }
         }
