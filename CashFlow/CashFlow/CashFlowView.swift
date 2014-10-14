@@ -272,16 +272,17 @@ class CashFlowView: NSView {
         self.store = store
         super.init(frame: frameRect)
     }
-    
+    var dateSeed = 0
+    func dateGenerator() -> NSDate {
+        let poop = dateSeed++ * 60 * 60 - (7 * 24 * 60 * 60)
+        let bla = NSDate().dateByAddingTimeInterval(NSTimeInterval(poop))
+        return bla
+    }
     required init?(coder: NSCoder) {
         store.description
-        
-        var dateSeed = 0
-        func dateGenerator() -> NSDate {
-            let poop = dateSeed++ * 60 * 60 - (7 * 24 * 60 * 60)
-            let bla = NSDate().dateByAddingTimeInterval(NSTimeInterval(poop))
-            return bla
-        }
+        super.init(coder: coder)
+
+   
         
         let myFirstAccount = "My First Account"
         store.openAccount(myFirstAccount, initialBalance: 0, date: dateGenerator())
@@ -307,7 +308,6 @@ class CashFlowView: NSView {
         
         //store.earn(mySecondAccount, amount: 1000, date: dateGenerator())
         
-        super.init(coder: coder)
         println(store.description)
     }
     
@@ -346,17 +346,26 @@ class CashFlowView: NSView {
                     destinationAccount = accountName
             }
         }
-        //Check if its an earn
-        if originAccount! == "In" {
-            store.earn(destinationAccount!, amount: 100, date: NSDate())
+        
+        var error: Bool = false
+        //Check for stupid transfers and flag error
+        if originAccount! == "Out" || destinationAccount! == originAccount! || destinationAccount! == "In" {
+            error = true
         }
-        //Check if its a spend
-        if destinationAccount! == "Out" {
-            store.spend(originAccount!, amount: 100, date: NSDate())
-        }
-        //If destination account != origin account and its not spend/earn then perform transfer
-        if destinationAccount! != originAccount! {
-            store.transfer(originAccount!, toAccount: destinationAccount!, amount: 100, date: NSDate())
+        
+        if error == false {
+            //Check if its an earn
+            if originAccount! == "In" {
+                store.earn(destinationAccount!, amount: 100, date: dateGenerator())
+            }
+            //Check if its a spend
+            if destinationAccount! == "Out" {
+                store.spend(originAccount!, amount: 100, date: dateGenerator())
+            }
+            //If destination account != origin account and its not spend/earn then perform transfer
+            if destinationAccount! != "Out" && originAccount! != "In" {
+                store.transfer(originAccount!, toAccount: destinationAccount!, amount: 100, date: dateGenerator())
+            }
         }
         
         //Set startPoint, endPoint, and originAccount to nil as no longer valid
