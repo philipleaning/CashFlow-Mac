@@ -335,15 +335,25 @@ class CashFlowView: NSView {
         //Convert to view coords
         let localViewClickLocation = self.convertPoint(globalCoordinatesPoint, fromView: nil)
         
+        //Find which account is the destination
         for (accountName, accountRect) in accountRects {
             if accountRect.contains(localViewClickLocation) {
-                if accountName != originAccount {
                     destinationAccount = accountName
-                    store.transfer(originAccount!, toAccount: destinationAccount!, amount: 200, date: NSDate())
-
-                }
             }
         }
+        //Check if its an earn
+        if originAccount! == "In" {
+            store.earn(destinationAccount!, amount: 100, date: NSDate())
+        }
+        //Check if its a spend
+        if destinationAccount! == "Out" {
+            store.spend(originAccount!, amount: 100, date: NSDate())
+        }
+        //If destination account != origin account and its not spend/earn then perform transfer
+        if destinationAccount! != originAccount! {
+            store.transfer(originAccount!, toAccount: destinationAccount!, amount: 100, date: NSDate())
+        }
+        
         //Set startPoint, endPoint, and originAccount to nil as no longer valid
         startPoint = nil
         endPoint = nil
